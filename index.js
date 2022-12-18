@@ -3,6 +3,7 @@ const express = require('express');
 const dotenv = require('dotenv').config();
 const port = process.env.PORT || 3000;
 const router = require('express').Router();
+const path = require('path');
 
 const app = express();
 
@@ -12,6 +13,9 @@ app.use(express.urlencoded({extended: false}))
 
 //All routes related to openai will be go through openaiRoutes.js
 app.use('/openai', require('./routes/openaiRoutes.js'))
+
+//Creating static folder
+app.use(express.static(path.join(__dirname, 'public')))
 
 // Respond with "hello world" when a GET request is made to the homepage
 app.get('/' , (req, res) => {
